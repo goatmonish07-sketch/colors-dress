@@ -23,7 +23,7 @@ built with **Next.js 14 (App Router)** and **Tailwind CSS**.
 | Framework | Next.js 14 (App Router) |
 | Styling | Tailwind CSS |
 | State | React Context + localStorage (cart) |
-| Images | Unsplash (open source) |
+| Images | LoremFlickr — real Flickr Creative-Commons photos, keyword-locked |
 | Fonts | Poppins + Inter (Google Fonts) |
 
 ## Getting Started
@@ -60,6 +60,11 @@ lib/products.js            # product catalog + helpers
 - **WhatsApp number** — edit `WHATSAPP_NUMBER` in `app/checkout/page.js`
   (country code + number, no `+`, e.g. `919876543210`).
 - **Products** — add/edit entries in `lib/products.js`.
+- **Product photos** — the catalog uses real, keyword-matched Creative-Commons
+  photos from LoremFlickr (each pinned with a `lock` seed so it stays stable).
+  For launch, replace them with your own shots: drop files in `public/products/`
+  and set each product's `images` to `"/products/<file>.jpg"`. If any image ever
+  fails to load, `SmartImage` shows an on-brand placeholder instead of a broken icon.
 
 ## Roadmap (next phases)
 

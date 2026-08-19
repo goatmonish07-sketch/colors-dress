@@ -3,6 +3,7 @@ const nextConfig = {
   images: {
     unoptimized: true,
     remotePatterns: [
+      { protocol: "https", hostname: "loremflickr.com" },
       { protocol: "https", hostname: "images.unsplash.com" },
     ],
   },

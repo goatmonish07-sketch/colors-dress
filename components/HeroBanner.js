@@ -11,8 +11,7 @@ const slides = [
     subtitle: "Trendy outfits for every occasion",
     cta: "Shop Now",
     href: "/products?category=dresses",
-    image:
-      "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=1200&q=80",
+    image: "https://loremflickr.com/900/700/dress,woman?lock=301",
     from: "#FCE4EC",
     to: "#F8BBD0",
   },
@@ -22,8 +21,7 @@ const slides = [
     subtitle: "Anarkalis, Anarkali gowns & more",
     cta: "Explore",
     href: "/products?category=dresses",
-    image:
-      "https://images.unsplash.com/photo-1583391733956-6c78276477e2?auto=format&fit=crop&w=1200&q=80",
+    image: "https://loremflickr.com/900/700/gown,fashion?lock=302",
     from: "#F3E5F5",
     to: "#E1BEE7",
   },
@@ -33,8 +31,7 @@ const slides = [
     subtitle: "Soft, comfortable, all-day wear",
     cta: "Shop Inners",
     href: "/products?category=inners-lingerie",
-    image:
-      "https://images.unsplash.com/photo-1617331721458-bd3bd3f9c7f8?auto=format&fit=crop&w=1200&q=80",
+    image: "https://loremflickr.com/900/700/clothing,cotton?lock=303",
     from: "#E0F2F1",
     to: "#B2DFDB",
   },
