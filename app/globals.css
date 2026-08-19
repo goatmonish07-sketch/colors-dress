@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-poppins: "Poppins";
+  --font-inter: "Inter";
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #f1f3f6;
+  color: #212121;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Hide scrollbar for horizontal scroll rows */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@layer components {
+  .shell {
+    @apply mx-auto w-full max-w-shell px-3 sm:px-4;
+  }
+  .btn-cta {
+    @apply inline-flex items-center justify-center rounded-sm bg-cta px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:bg-brand-dark;
+  }
+  .btn-outline {
+    @apply inline-flex items-center justify-center rounded-sm border border-line bg-white px-6 py-3 text-sm font-semibold uppercase tracking-wide text-ink shadow-card transition-colors hover:border-brand;
+  }
+  .chip {
+    @apply inline-flex items-center rounded-full border border-line bg-white px-3 py-1 text-xs font-medium text-ink;
+  }
+}
