@@ -5,3 +5,6 @@
 *.log
 .env*
 .DS_Store
+
+# static export
+/out
