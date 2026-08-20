@@ -103,7 +103,9 @@ export default function Navbar() {
       {/* Category strip */}
       <nav className="hidden border-t border-line bg-white md:block">
         <div className="shell flex items-center gap-6 overflow-x-auto no-scrollbar text-sm">
-          <span className="py-2.5 font-semibold text-brand">All Categories</span>
+          <Link href="/" className="whitespace-nowrap py-2.5 font-semibold text-brand hover:text-brand-dark">
+            Home
+          </Link>
           {categories.map((c) => (
             <Link
               key={c.slug}
@@ -123,6 +125,9 @@ export default function Navbar() {
       {open && (
         <nav className="border-t border-line bg-white md:hidden">
           <div className="shell flex flex-col py-2 text-sm">
+            <Link href="/" onClick={() => setOpen(false)} className="py-2.5 font-semibold text-brand">
+              Home
+            </Link>
             {categories.map((c) => (
               <Link
                 key={c.slug}
