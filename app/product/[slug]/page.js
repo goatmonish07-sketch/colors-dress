@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import ProductDetail from "../../../components/ProductDetail";
 import ProductCard from "../../../components/ProductCard";
+import Reviews from "../../../components/Reviews";
 import { getProduct, getByCategory, products } from "../../../lib/products";
 
 export function generateStaticParams() {
@@ -27,6 +28,8 @@ export default function ProductPage({ params }) {
   return (
     <div className="pb-6">
       <ProductDetail product={product} />
+
+      <Reviews product={product} />
 
       {related.length > 0 && (
         <section className="shell mt-8">
