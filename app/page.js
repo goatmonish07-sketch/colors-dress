@@ -38,30 +38,26 @@ export default function HomePage() {
       <CategoryCircles />
       <HeroBanner />
 
-      {/* Discount / coupon banner */}
+      {/* Discount / coupon strip — slim & elegant */}
       <section className="shell mt-4">
-        <div className="overflow-hidden rounded-lg bg-gradient-to-r from-brand to-brand-dark p-4 text-white sm:p-5">
+        <div className="flex items-center gap-3 overflow-x-auto no-scrollbar rounded-md border border-line bg-white px-3 py-2.5 shadow-card">
+          <span className="flex shrink-0 items-center gap-1.5 text-xs font-semibold text-brand">
+            <TagIcon className="h-4 w-4" /> OFFERS
+          </span>
+          <span className="h-4 w-px shrink-0 bg-line" />
           <div className="flex items-center gap-2">
-            <TagIcon className="h-5 w-5" />
-            <h2 className="font-display text-base font-bold sm:text-lg">Extra Savings — Apply at Checkout</h2>
-          </div>
-          <div className="mt-3 flex gap-3 overflow-x-auto no-scrollbar">
             {Object.entries(COUPONS).map(([code, c]) => (
-              <div
+              <span
                 key={code}
-                className="flex min-w-[190px] flex-1 items-center gap-3 rounded-md border border-dashed border-white/60 bg-white/10 px-3 py-2.5"
+                className="flex shrink-0 items-center gap-1.5 whitespace-nowrap text-xs text-muted"
               >
-                <div className="rounded-sm bg-white px-2 py-1 text-sm font-extrabold tracking-wide text-brand">
+                <code className="rounded-sm border border-dashed border-brand/50 bg-brand-light px-1.5 py-0.5 font-bold tracking-wide text-brand">
                   {code}
-                </div>
-                <div className="text-xs leading-tight text-white/90">
-                  <div className="font-semibold">{c.label}</div>
-                  <div className="text-white/70">Min order ₹{c.min}</div>
-                </div>
-              </div>
+                </code>
+                {c.label}
+              </span>
             ))}
           </div>
-          <p className="mt-2 text-[11px] text-white/80">Copy a code and enter it in the coupon box at checkout.</p>
         </div>
       </section>
 

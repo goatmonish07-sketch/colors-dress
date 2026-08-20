@@ -8,6 +8,8 @@ import { discountPct } from "../lib/products";
 import { StarIcon, TruckIcon, ShieldIcon, RefreshIcon } from "./icons";
 import SmartImage from "./SmartImage";
 import WishlistButton from "./WishlistButton";
+import ImageZoom from "./ImageZoom";
+import SizeChart from "./SizeChart";
 
 export default function ProductDetail({ product }) {
   const { addItem } = useCart();
@@ -16,6 +18,8 @@ export default function ProductDetail({ product }) {
   const [size, setSize] = useState(product.sizes[0]);
   const [color, setColor] = useState(product.colors[0]);
   const [qty, setQty] = useState(1);
+  const [zoomOpen, setZoomOpen] = useState(false);
+  const [sizeOpen, setSizeOpen] = useState(false);
   const off = discountPct(product);
 
   const add = () => addItem(product, { size, color, qty });
@@ -55,12 +59,23 @@ export default function ProductDetail({ product }) {
             ))}
           </div>
           <div className="relative flex-1 overflow-hidden rounded-md bg-page">
-            <SmartImage
-              src={product.images[activeImg]}
-              fallbacks={product.imageFallbacks?.[activeImg]}
-              alt={product.name}
-              className="aspect-[3/4] w-full object-cover"
-            />
+            <button
+              type="button"
+              onClick={() => setZoomOpen(true)}
+              aria-label="Zoom image"
+              className="block w-full cursor-zoom-in"
+            >
+              <SmartImage
+                src={product.images[activeImg]}
+                fallbacks={product.imageFallbacks?.[activeImg]}
+                alt={product.name}
+                className="aspect-[3/4] w-full object-cover"
+              />
+            </button>
+            <span className="pointer-events-none absolute bottom-3 left-3 flex items-center gap-1 rounded-full bg-black/55 px-2.5 py-1 text-[11px] font-medium text-white">
+              <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="7" /><path d="m21 21-4.3-4.3M11 8v6M8 11h6" /></svg>
+              Tap to zoom
+            </span>
             <WishlistButton slug={product.slug} className="absolute right-3 top-3 h-9 w-9" size="h-5 w-5" />
           </div>
         </div>
@@ -107,7 +122,7 @@ export default function ProductDetail({ product }) {
           <div className="mt-5">
             <div className="mb-2 flex items-center justify-between">
               <span className="text-sm font-semibold text-ink">Size</span>
-              <button className="text-xs font-semibold text-brand">Size Guide</button>
+              <button onClick={() => setSizeOpen(true)} className="text-xs font-semibold text-brand hover:underline">Size Guide</button>
             </div>
             <div className="flex flex-wrap gap-2">
               {product.sizes.map((s) => (
@@ -178,6 +193,17 @@ export default function ProductDetail({ product }) {
           ))}
         </ul>
       </div>
+
+      {zoomOpen && (
+        <ImageZoom
+          images={product.images}
+          fallbacks={product.imageFallbacks}
+          name={product.name}
+          index={activeImg}
+          onClose={() => setZoomOpen(false)}
+        />
+      )}
+      {sizeOpen && <SizeChart onClose={() => setSizeOpen(false)} />}
     </div>
   );
 }
