@@ -2,17 +2,15 @@
 
 import { useState } from "react";
 
-// Renders a normal <img>. If the source fails to load (blocked host, invalid
-// URL, offline) it swaps to `fallback` (a built-in SVG data URI that always
-// loads). If no fallback is given it shows an on-brand placeholder.
-export default function SmartImage({ src, alt = "", className = "", fallback, ...rest }) {
-  const [failed, setFailed] = useState(false);
+// Renders an <img> that walks a fallback chain: it starts with `src`, and on
+// each load error advances to the next entry in `fallbacks` (an ordered array,
+// e.g. [unsplash, loremflickr, builtin-svg]). `fallback` (single) is also
+// accepted. When every source fails it shows an on-brand placeholder.
+export default function SmartImage({ src, alt = "", className = "", fallback, fallbacks, ...rest }) {
+  const chain = [src, ...(fallbacks || (fallback ? [fallback] : []))].filter(Boolean);
+  const [idx, setIdx] = useState(0);
 
-  if (failed && fallback) {
-    return <img src={fallback} alt={alt} className={className} {...rest} />;
-  }
-
-  if (failed) {
+  if (idx >= chain.length) {
     return (
       <div className="flex h-full w-full flex-col items-center justify-center gap-2 bg-gradient-to-br from-brand-light via-white to-brand-light/60 p-3 text-center">
         <svg viewBox="0 0 24 24" className="h-9 w-9 text-brand/70" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -24,5 +22,14 @@ export default function SmartImage({ src, alt = "", className = "", fallback, ..
     );
   }
 
-  return <img src={src} alt={alt} onError={() => setFailed(true)} className={className} {...rest} />;
+  return (
+    <img
+      key={idx}
+      src={chain[idx]}
+      alt={alt}
+      onError={() => setIdx((i) => i + 1)}
+      className={className}
+      {...rest}
+    />
+  );
 }
