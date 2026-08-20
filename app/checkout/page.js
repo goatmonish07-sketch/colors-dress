@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useCart } from "../../components/CartContext";
-import { SHOP } from "../../lib/config";
+import { SHOP, applyCoupon } from "../../lib/config";
 import { ShieldIcon, RefreshIcon, TruckIcon, WhatsAppIcon } from "../../components/icons";
 
 export default function CheckoutPage() {
@@ -12,10 +12,15 @@ export default function CheckoutPage() {
   const router = useRouter();
   const [pay, setPay] = useState("whatsapp");
   const [form, setForm] = useState({ name: "", phone: "", address: "", city: "", pincode: "" });
+  const [coupon, setCoupon] = useState("");
+  const [applied, setApplied] = useState(null);
 
+  const couponAmount = applied?.ok ? Math.min(applied.amount, subtotal) : 0;
   const shipping = subtotal > SHOP.freeShippingAbove || subtotal === 0 ? 0 : SHOP.shippingFee;
-  const total = subtotal + shipping;
+  const total = Math.max(0, subtotal - couponAmount) + shipping;
   const filled = form.name && form.phone && form.address && form.pincode;
+
+  const applyCode = () => setApplied(applyCoupon(coupon, subtotal));
 
   if (ready && items.length === 0) {
     return (
@@ -36,6 +41,7 @@ export default function CheckoutPage() {
       date: new Date().toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" }),
       status: "Processing",
       method,
+      coupon: couponAmount > 0 ? { code: coupon.trim().toUpperCase(), amount: couponAmount } : null,
       total,
       items: items.map((i) => ({ name: i.name, size: i.size, qty: i.qty, price: i.price, image: i.image })),
     };
@@ -52,9 +58,11 @@ export default function CheckoutPage() {
       method === "cod"
         ? "*Payment:* Cash on Delivery"
         : `*Payment:* UPI / WhatsApp Pay${SHOP.upiId ? ` (UPI: ${SHOP.upiId})` : ""}`;
+    const couponLine = couponAmount > 0 ? `\nCoupon ${coupon.trim().toUpperCase()}: − ₹${couponAmount}` : "";
     const text =
       `*New Order — Colors Dress*\nOrder ID: ${orderId}\n\n` +
       lines.join("\n") +
+      couponLine +
       `\n\n*Total: ₹${total}*\n${payLine}` +
       `\n\n*Deliver to:*\n${form.name}\n${form.address}, ${form.city} - ${form.pincode}\nPhone: ${form.phone}` +
       (method === "whatsapp" ? `\n\nPlease share the UPI ID / QR so I can pay. Thank you!` : "");
@@ -159,9 +167,37 @@ export default function CheckoutPage() {
           <h2 className="mb-3 border-b border-line pb-2 text-sm font-bold uppercase tracking-wide text-muted">
             Order Summary
           </h2>
+
+          {/* Coupon */}
+          <div className="mb-3">
+            <div className="flex gap-2">
+              <input
+                value={coupon}
+                onChange={(e) => setCoupon(e.target.value.toUpperCase())}
+                placeholder="Coupon code"
+                className="w-full rounded-sm border border-line px-3 py-2 text-sm uppercase outline-none focus:border-brand"
+              />
+              <button
+                onClick={applyCode}
+                className="rounded-sm border border-brand px-3 py-2 text-sm font-semibold text-brand hover:bg-brand-light"
+              >
+                Apply
+              </button>
+            </div>
+            {applied && (
+              <p className={`mt-1 text-xs font-medium ${applied.ok ? "text-success" : "text-cta"}`}>
+                {applied.ok ? "✓ " : ""}{applied.message}
+              </p>
+            )}
+            <p className="mt-1 text-[11px] text-muted">Try: WELCOME10 · FLAT100 · COLORS50</p>
+          </div>
+
           <dl className="space-y-2 text-sm">
             <div className="flex justify-between"><dt className="text-muted">{count} items</dt><dd>₹{subtotal + discount}</dd></div>
             <div className="flex justify-between"><dt className="text-muted">Discount</dt><dd className="text-success">− ₹{discount}</dd></div>
+            {couponAmount > 0 && (
+              <div className="flex justify-between"><dt className="text-muted">Coupon</dt><dd className="text-success">− ₹{couponAmount}</dd></div>
+            )}
             <div className="flex justify-between"><dt className="text-muted">Delivery</dt><dd className={shipping === 0 ? "text-success" : ""}>{shipping === 0 ? "FREE" : `₹${shipping}`}</dd></div>
             <div className="flex justify-between border-t border-line pt-2 text-base font-bold text-ink"><dt>Total</dt><dd>₹{total}</dd></div>
           </dl>

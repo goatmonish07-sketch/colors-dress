@@ -4,6 +4,7 @@ import { WishlistProvider } from "../components/WishlistContext";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import MobileNav from "../components/MobileNav";
+import FloatingWhatsApp from "../components/FloatingWhatsApp";
 
 export const metadata = {
   title: "Colors Dress — Ladies Dresses, Inners & Lingerie Online",
@@ -32,6 +33,7 @@ export default function RootLayout({ children }) {
             <Navbar />
             <main className="min-h-screen pb-16 md:pb-0">{children}</main>
             <Footer />
+            <FloatingWhatsApp />
             <MobileNav />
           </WishlistProvider>
         </CartProvider>
