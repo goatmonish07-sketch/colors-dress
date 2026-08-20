@@ -4,7 +4,9 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
 export default function OrderSuccessClient() {
-  const id = useSearchParams().get("id") || "COL00000";
+  const params = useSearchParams();
+  const id = params.get("id") || "COL00000";
+  const method = params.get("method");
 
   return (
     <div className="shell py-16 text-center">
@@ -23,8 +25,10 @@ export default function OrderSuccessClient() {
           <div className="text-lg font-bold text-brand">#{id}</div>
         </div>
 
-        <p className="mt-4 text-xs text-muted">
-          We have sent the order confirmation to your email and phone.
+        <p className="mt-4 text-sm text-ink/80">
+          {method === "cod"
+            ? "Your order is confirmed. Please keep the amount ready — pay in cash on delivery."
+            : "Your order has opened in WhatsApp. Send us the message to confirm, and we'll share our UPI / QR to complete payment."}
         </p>
 
         <div className="mt-6 flex flex-col gap-2">
