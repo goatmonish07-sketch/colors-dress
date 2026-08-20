@@ -2,11 +2,15 @@
 
 import { useState } from "react";
 
-// Renders a normal <img>, but if the source fails to load (blocked host,
-// invalid URL, offline) it swaps to an on-brand placeholder so the UI never
-// shows a broken image.
-export default function SmartImage({ src, alt = "", className = "", ...rest }) {
+// Renders a normal <img>. If the source fails to load (blocked host, invalid
+// URL, offline) it swaps to `fallback` (a built-in SVG data URI that always
+// loads). If no fallback is given it shows an on-brand placeholder.
+export default function SmartImage({ src, alt = "", className = "", fallback, ...rest }) {
   const [failed, setFailed] = useState(false);
+
+  if (failed && fallback) {
+    return <img src={fallback} alt={alt} className={className} {...rest} />;
+  }
 
   if (failed) {
     return (
@@ -20,13 +24,5 @@ export default function SmartImage({ src, alt = "", className = "", ...rest }) {
     );
   }
 
-  return (
-    <img
-      src={src}
-      alt={alt}
-      onError={() => setFailed(true)}
-      className={className}
-      {...rest}
-    />
-  );
+  return <img src={src} alt={alt} onError={() => setFailed(true)} className={className} {...rest} />;
 }

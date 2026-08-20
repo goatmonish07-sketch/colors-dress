@@ -50,13 +50,14 @@ export default function ProductDetail({ product }) {
                   activeImg === i ? "border-brand" : "border-line"
                 }`}
               >
-                <SmartImage src={src} alt={`${product.name} view ${i + 1}`} className="h-full w-full object-cover" />
+                <SmartImage src={src} fallback={product.imageFallbacks?.[i]} alt={`${product.name} view ${i + 1}`} className="h-full w-full object-cover" />
               </button>
             ))}
           </div>
           <div className="relative flex-1 overflow-hidden rounded-md bg-page">
             <SmartImage
               src={product.images[activeImg]}
+              fallback={product.imageFallbacks?.[activeImg]}
               alt={product.name}
               className="aspect-[3/4] w-full object-cover"
             />

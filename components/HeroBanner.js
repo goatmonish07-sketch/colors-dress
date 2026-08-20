@@ -12,7 +12,8 @@ const slides = [
     subtitle: "Trendy outfits for every occasion",
     cta: "Shop Now",
     href: "/products?category=dresses",
-    image: bannerImage("dresses", "#EC407A", 0),
+    image: "https://loremflickr.com/900/700/dress,fashion?lock=801",
+    fallback: bannerImage("dresses", "#EC407A", 0),
     from: "#FCE4EC",
     to: "#F8BBD0",
   },
@@ -22,7 +23,8 @@ const slides = [
     subtitle: "Anarkalis, gowns & more",
     cta: "Explore",
     href: "/products?category=dresses",
-    image: bannerImage("dresses", "#8E24AA", 1),
+    image: "https://loremflickr.com/900/700/gown,woman?lock=802",
+    fallback: bannerImage("dresses", "#8E24AA", 1),
     from: "#F3E5F5",
     to: "#E1BEE7",
   },
@@ -32,7 +34,8 @@ const slides = [
     subtitle: "Soft, comfortable, all-day wear",
     cta: "Shop Inners",
     href: "/products?category=inners-lingerie",
-    image: bannerImage("inners-lingerie", "#26A69A", 2),
+    image: "https://loremflickr.com/900/700/clothing,cotton?lock=803",
+    fallback: bannerImage("inners-lingerie", "#26A69A", 2),
     from: "#E0F2F1",
     to: "#B2DFDB",
   },
@@ -70,6 +73,7 @@ export default function HeroBanner() {
           <div className="order-1 h-56 md:order-2 md:h-96">
             <SmartImage
               src={s.image}
+              fallback={s.fallback}
               alt={s.title.replace("\n", " ")}
               className="h-full w-full object-cover"
             />

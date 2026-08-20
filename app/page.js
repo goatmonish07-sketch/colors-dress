@@ -3,6 +3,7 @@ import HeroBanner from "../components/HeroBanner";
 import CategoryCircles from "../components/CategoryCircles";
 import ProductCard from "../components/ProductCard";
 import ProductRail from "../components/ProductRail";
+import SmartImage from "../components/SmartImage";
 import { categories, products, bannerImage } from "../lib/products";
 import { TruckIcon, ShieldIcon, RefreshIcon, TagIcon } from "../components/icons";
 
@@ -27,8 +28,8 @@ export default function HomePage() {
   const inners = products.filter((p) => p.category === "inners-lingerie");
 
   const promos = [
-    { title: "Crazy Price Drop", sub: "Dresses up to 60% OFF", cta: "Shop Dresses", href: "/products?category=dresses", cat: "dresses", color: "#EC407A", from: "#FCE4EC", to: "#F8BBD0" },
-    { title: "Inner Wear Fest", sub: "Min 40% OFF on inners", cta: "Shop Inners", href: "/products?category=inners-lingerie", cat: "inners-lingerie", color: "#26A69A", from: "#E0F2F1", to: "#B2DFDB" },
+    { title: "Crazy Price Drop", sub: "Dresses up to 60% OFF", cta: "Shop Dresses", href: "/products?category=dresses", cat: "dresses", color: "#EC407A", img: "https://loremflickr.com/500/500/dress,fashion?lock=811", from: "#FCE4EC", to: "#F8BBD0" },
+    { title: "Inner Wear Fest", sub: "Min 40% OFF on inners", cta: "Shop Inners", href: "/products?category=inners-lingerie", cat: "inners-lingerie", color: "#26A69A", img: "https://loremflickr.com/500/500/clothing,cotton?lock=812", from: "#E0F2F1", to: "#B2DFDB" },
   ];
 
   return (
@@ -86,7 +87,7 @@ export default function HomePage() {
                 <div className="mt-1 text-sm text-ink/70">{p.sub}</div>
                 <span className="btn-cta mt-3">{p.cta}</span>
               </div>
-              <img src={bannerImage(p.cat, p.color, 0)} alt={p.title} className="h-28 w-24 rounded-md object-cover" />
+              <SmartImage src={p.img} fallback={bannerImage(p.cat, p.color, 0)} alt={p.title} className="h-28 w-24 rounded-md object-cover" />
             </Link>
           ))}
         </div>
@@ -125,7 +126,7 @@ export default function HomePage() {
               className="group overflow-hidden rounded-md bg-white text-center shadow-card transition-shadow hover:shadow-hover"
             >
               <div className="aspect-square overflow-hidden bg-page">
-                <img src={c.image} alt={c.name} className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" />
+                <SmartImage src={c.image} fallback={c.imageFallback} alt={c.name} className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" />
               </div>
               <div className="p-3">
                 <div className="text-sm font-semibold text-ink">{c.name}</div>
