@@ -5,6 +5,7 @@ import ProductCard from "../components/ProductCard";
 import ProductRail from "../components/ProductRail";
 import SmartImage from "../components/SmartImage";
 import { categories, products, bannerImage } from "../lib/products";
+import { COUPONS } from "../lib/config";
 import { TruckIcon, ShieldIcon, RefreshIcon, TagIcon } from "../components/icons";
 
 const features = [
@@ -36,6 +37,33 @@ export default function HomePage() {
     <div className="pb-6">
       <CategoryCircles />
       <HeroBanner />
+
+      {/* Discount / coupon banner */}
+      <section className="shell mt-4">
+        <div className="overflow-hidden rounded-lg bg-gradient-to-r from-brand to-brand-dark p-4 text-white sm:p-5">
+          <div className="flex items-center gap-2">
+            <TagIcon className="h-5 w-5" />
+            <h2 className="font-display text-base font-bold sm:text-lg">Extra Savings — Apply at Checkout</h2>
+          </div>
+          <div className="mt-3 flex gap-3 overflow-x-auto no-scrollbar">
+            {Object.entries(COUPONS).map(([code, c]) => (
+              <div
+                key={code}
+                className="flex min-w-[190px] flex-1 items-center gap-3 rounded-md border border-dashed border-white/60 bg-white/10 px-3 py-2.5"
+              >
+                <div className="rounded-sm bg-white px-2 py-1 text-sm font-extrabold tracking-wide text-brand">
+                  {code}
+                </div>
+                <div className="text-xs leading-tight text-white/90">
+                  <div className="font-semibold">{c.label}</div>
+                  <div className="text-white/70">Min order ₹{c.min}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <p className="mt-2 text-[11px] text-white/80">Copy a code and enter it in the coupon box at checkout.</p>
+        </div>
+      </section>
 
       {/* Offer strip */}
       <section className="shell mt-4">
