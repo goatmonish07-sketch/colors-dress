@@ -38,9 +38,25 @@ export default function CheckoutPage() {
     );
   }
 
+  const saveOrder = (orderId) => {
+    const order = {
+      id: orderId,
+      date: new Date().toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" }),
+      status: "Processing",
+      total,
+      items: items.map((i) => ({ name: i.name, size: i.size, qty: i.qty, price: i.price, image: i.image })),
+    };
+    try {
+      const raw = localStorage.getItem("colors-dress-orders");
+      const list = raw ? JSON.parse(raw) : [];
+      localStorage.setItem("colors-dress-orders", JSON.stringify([order, ...list]));
+    } catch {}
+  };
+
   const placeOrder = () => {
     if (!filled) return;
     const orderId = "COL" + Math.floor(10000 + Math.random() * 89999);
+    saveOrder(orderId);
     clear();
     router.push(`/order-success?id=${orderId}`);
   };

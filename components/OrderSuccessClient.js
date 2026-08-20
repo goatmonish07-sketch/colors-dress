@@ -29,7 +29,7 @@ export default function OrderSuccessClient() {
 
         <div className="mt-6 flex flex-col gap-2">
           <Link href="/products?category=all-stock" className="btn-cta w-full">Continue Shopping</Link>
-          <Link href="/" className="btn-outline w-full">Back to Home</Link>
+          <Link href="/orders" className="btn-outline w-full">View My Orders</Link>
         </div>
       </div>
     </div>

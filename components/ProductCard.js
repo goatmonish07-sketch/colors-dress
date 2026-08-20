@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { discountPct } from "../lib/products";
-import { StarIcon, HeartIcon } from "./icons";
+import { StarIcon } from "./icons";
 import SmartImage from "./SmartImage";
+import WishlistButton from "./WishlistButton";
 
 export default function ProductCard({ product }) {
   const off = discountPct(product);
@@ -17,12 +18,7 @@ export default function ProductCard({ product }) {
           loading="lazy"
           className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
         />
-        <button
-          aria-label="Add to wishlist"
-          className="absolute right-2 top-2 grid h-8 w-8 place-items-center rounded-full bg-white/90 text-muted shadow-card transition-colors hover:text-cta"
-        >
-          <HeartIcon className="h-4 w-4" />
-        </button>
+        <WishlistButton slug={product.slug} className="absolute right-2 top-2 h-8 w-8" />
         {product.bestseller && (
           <span className="absolute left-2 top-2 rounded-sm bg-brand px-2 py-0.5 text-[10px] font-bold uppercase text-white">
             Bestseller

@@ -5,8 +5,9 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useCart } from "./CartContext";
 import { discountPct } from "../lib/products";
-import { StarIcon, TruckIcon, ShieldIcon, RefreshIcon, HeartIcon } from "./icons";
+import { StarIcon, TruckIcon, ShieldIcon, RefreshIcon } from "./icons";
 import SmartImage from "./SmartImage";
+import WishlistButton from "./WishlistButton";
 
 export default function ProductDetail({ product }) {
   const { addItem } = useCart();
@@ -59,12 +60,7 @@ export default function ProductDetail({ product }) {
               alt={product.name}
               className="aspect-[3/4] w-full object-cover"
             />
-            <button
-              aria-label="Add to wishlist"
-              className="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full bg-white/90 text-muted shadow-card hover:text-cta"
-            >
-              <HeartIcon className="h-5 w-5" />
-            </button>
+            <WishlistButton slug={product.slug} className="absolute right-3 top-3 h-9 w-9" size="h-5 w-5" />
           </div>
         </div>
 

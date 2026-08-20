@@ -3,11 +3,13 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useCart } from "./CartContext";
+import { useWishlist } from "./WishlistContext";
 import { categories } from "../lib/products";
-import { SearchIcon, CartIcon, UserIcon } from "./icons";
+import { SearchIcon, CartIcon, UserIcon, HeartIcon } from "./icons";
 
 export default function Navbar() {
   const { count } = useCart();
+  const { count: wish } = useWishlist();
   const [open, setOpen] = useState(false);
 
   return (
@@ -60,6 +62,17 @@ export default function Navbar() {
           <Link href="/account" className="hidden items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium text-ink hover:text-brand sm:flex">
             <UserIcon className="h-5 w-5" />
             <span>Sign In</span>
+          </Link>
+          <Link href="/wishlist" className="relative flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium text-ink hover:text-brand">
+            <span className="relative">
+              <HeartIcon className="h-6 w-6" />
+              {wish > 0 && (
+                <span className="absolute -right-2 -top-2 grid h-4 min-w-4 place-items-center rounded-full bg-cta px-1 text-[10px] font-bold text-white">
+                  {wish}
+                </span>
+              )}
+            </span>
+            <span className="hidden sm:block">Wishlist</span>
           </Link>
           <Link href="/cart" className="relative flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium text-ink hover:text-brand">
             <span className="relative">

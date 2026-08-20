@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import SmartImage from "./SmartImage";
+import { bannerImage } from "../lib/products";
 
 const slides = [
   {
@@ -11,17 +12,17 @@ const slides = [
     subtitle: "Trendy outfits for every occasion",
     cta: "Shop Now",
     href: "/products?category=dresses",
-    image: "https://loremflickr.com/900/700/dress,woman?lock=301",
+    image: bannerImage("dresses", "#EC407A", 0),
     from: "#FCE4EC",
     to: "#F8BBD0",
   },
   {
     tag: "FESTIVE EDIT",
     title: "Ethnic Kurtis\n& Gowns",
-    subtitle: "Anarkalis, Anarkali gowns & more",
+    subtitle: "Anarkalis, gowns & more",
     cta: "Explore",
     href: "/products?category=dresses",
-    image: "https://loremflickr.com/900/700/gown,fashion?lock=302",
+    image: bannerImage("dresses", "#8E24AA", 1),
     from: "#F3E5F5",
     to: "#E1BEE7",
   },
@@ -31,7 +32,7 @@ const slides = [
     subtitle: "Soft, comfortable, all-day wear",
     cta: "Shop Inners",
     href: "/products?category=inners-lingerie",
-    image: "https://loremflickr.com/900/700/clothing,cotton?lock=303",
+    image: bannerImage("inners-lingerie", "#26A69A", 2),
     from: "#E0F2F1",
     to: "#B2DFDB",
   },

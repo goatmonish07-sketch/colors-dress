@@ -33,7 +33,7 @@ const cols = [
 
 export default function Footer() {
   return (
-    <footer className="mt-10 border-t border-line bg-white">
+    <footer className="mt-10 border-t border-line bg-white pb-16 md:pb-0">
       <div className="shell grid grid-cols-2 gap-8 py-10 md:grid-cols-5">
         <div className="col-span-2">
           <div className="font-display text-2xl font-bold text-brand">COLORS DRESS</div>

@@ -1,7 +1,9 @@
 import "./globals.css";
 import { CartProvider } from "../components/CartContext";
+import { WishlistProvider } from "../components/WishlistContext";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import MobileNav from "../components/MobileNav";
 
 export const metadata = {
   title: "Colors Dress — Ladies Dresses, Inners & Lingerie Online",
@@ -26,9 +28,12 @@ export default function RootLayout({ children }) {
       </head>
       <body className="font-sans">
         <CartProvider>
-          <Navbar />
-          <main className="min-h-screen">{children}</main>
-          <Footer />
+          <WishlistProvider>
+            <Navbar />
+            <main className="min-h-screen pb-16 md:pb-0">{children}</main>
+            <Footer />
+            <MobileNav />
+          </WishlistProvider>
         </CartProvider>
       </body>
     </html>
