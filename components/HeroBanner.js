@@ -53,42 +53,41 @@ export default function HeroBanner() {
 
   return (
     <section className="shell pt-4">
-      <div
-        className="relative overflow-hidden rounded-lg"
-        style={{ background: `linear-gradient(120deg, ${s.from}, ${s.to})` }}
-      >
-        <div className="grid items-center gap-4 md:grid-cols-2">
-          <div className="order-2 p-6 sm:p-10 md:order-1">
-            <span className="text-xs font-bold tracking-[0.25em] text-brand-dark">
-              {s.tag}
-            </span>
-            <h1 className="mt-3 whitespace-pre-line font-display text-3xl font-bold leading-tight text-ink sm:text-4xl md:text-5xl">
-              {s.title}
-            </h1>
-            <p className="mt-3 text-sm text-ink/70 sm:text-base">{s.subtitle}</p>
-            <Link href={s.href} className="btn-cta mt-6">
-              {s.cta}
-            </Link>
-          </div>
-          <div className="order-1 h-56 md:order-2 md:h-96">
-            <SmartImage
-              src={s.image}
-              fallbacks={s.fallbacks}
-              alt={s.title.replace("\n", " ")}
-              className="h-full w-full object-cover"
-            />
-          </div>
+      <div className="relative h-44 overflow-hidden rounded-lg sm:h-60 md:h-80">
+        {/* background photo */}
+        <SmartImage
+          key={i}
+          src={s.image}
+          fallbacks={s.fallbacks}
+          alt={s.title.replace("\n", " ")}
+          className="absolute inset-0 h-full w-full object-cover object-top"
+        />
+        {/* readability scrim */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/35 to-transparent" />
+
+        {/* content */}
+        <div className="relative flex h-full max-w-[68%] flex-col justify-center px-5 sm:max-w-md sm:px-8">
+          <span className="text-[10px] font-bold tracking-[0.25em] text-white/85 sm:text-xs">
+            {s.tag}
+          </span>
+          <h1 className="mt-1.5 whitespace-pre-line font-display text-xl font-bold leading-tight text-white sm:text-3xl md:text-4xl">
+            {s.title}
+          </h1>
+          <p className="mt-1 hidden text-sm text-white/85 sm:block">{s.subtitle}</p>
+          <Link href={s.href} className="btn-cta mt-3 w-fit px-4 py-2 text-xs sm:mt-5 sm:px-6 sm:py-3 sm:text-sm">
+            {s.cta}
+          </Link>
         </div>
 
         {/* dots */}
-        <div className="absolute bottom-3 left-6 flex gap-2 md:left-10">
+        <div className="absolute bottom-3 left-5 flex gap-2 sm:left-8">
           {slides.map((_, idx) => (
             <button
               key={idx}
               aria-label={`Go to slide ${idx + 1}`}
               onClick={() => setI(idx)}
               className={`h-1.5 rounded-full transition-all ${
-                idx === i ? "w-6 bg-brand" : "w-2 bg-white/70"
+                idx === i ? "w-6 bg-white" : "w-2 bg-white/50"
               }`}
             />
           ))}
